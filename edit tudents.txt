@@ -1,0 +1,92 @@
+int i;
+i=Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
+
+SqlCOmmand cmd=con.CreateCommand();
+cmd.CommandType=CommandType.Text;
+cmd.CommandText="select * from student_info where id="+i+"";
+cmd.ExecuteNonQuery();
+DataTable dt=new DataTable();
+SqlDataAdapter da=new SqlDataAdapter(cmd);
+da.Fill(dt);
+foreach(DataRow dr in dt.Rows)
+{
+student_name.Text=dr["Name"].ToString();
+dob.Text=.Text=dr["DateOfBirth"].ToString();
+student_address.Text=dr["Address"].ToString();
+student_email.Text=dr["Email"].ToString();
+student_PhoneNo.Text=dr["PhoneNo"].ToString();
+student_course.Text=dr["Course"].ToString();
+student_enrollmentno.Text=dr["EnrollmentNo"].ToString();
+student_rollno.Text=dr["RollNo].ToString();
+student_batch.Text=dr["Batch"].ToString();
+student_currentsem.Text=dr["CurrentSem"].ToString();
+student_libcardno.Text=dr["LibCardNo"].ToString();
+}
+
+
+/*string s = (string)ds.Tables[0].Rows[0][2];
+                            byte[] data = System.Text.Encoding.ASCII.GetBytes(s);
+                            ms = new MemoryStream(data);
+                            pictureBox1.Image = Image.FromStream(ms);
+                            */
+
+                            //var data = (Byte[])ds.Tables["student_info"].Rows[count - 1]["Image"];
+                            //var stream = new MemoryStream(data);
+                            //pictureBox1.Image = Image.FromStream(stream);
+
+
+                            //img = new Bitmap(@"..\..\" + dr["Image"].ToString());
+                            //MemoryStream ms = new MemoryStream(img);
+                            //pictureBox1.Image = Image.FromStream(ms);
+
+
+                            //pictureBox1.Image = img;\
+
+
+
+ if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+            con.Open();
+            SqlCommand cmd=con.CreateCommand();
+cmd.CommandType=CommandType.Text;
+cmd.CommandText = "select * from student_info where EnrollmentNo like('%" + textBox1.Text + "%')";
+cmd.ExecuteNonQuery();
+DataTable dt=new DataTable();
+SqlDataAdapter da=new SqlDataAdapter(cmd);
+da.Fill(dt);
+foreach(DataRow dr in dt.Rows)
+{
+student_name.Text=dr["Name"].ToString();
+dateTimePicker1_dob.Text=dr["DateOfBirth"].ToString();
+student_address.Text=dr["Address"].ToString();
+student_email.Text=dr["Email"].ToString();
+student_phnNo.Text=dr["PhoneNo"].ToString();
+student_course.Text=dr["Course"].ToString();
+student_enrollmentNo.Text=dr["EnrollmentNo"].ToString();
+student_rollNo.Text=dr["RollNo"].ToString();
+student_batch.Text=dr["Batch"].ToString();
+student_crrtsem.Text=dr["CurrentSem"].ToString();
+student_libcardNo.Text=dr["LibCardNo"].ToString();
+
+pictureBox1.Image = System.Drawing.Image.FromFile("Image");
+con.Close();
+}
+
+
+
+string query = "UPDATE tbl_Items SET Name = @Name,Category=@Category,start = @start, end = @End,Description = @Description where ID = @ID ";
+        SqlCommand cmd = new SqlCommand(query, sqlConn);
+        cmd.Parameters.AddWithValue("@ID",txtID.Text);
+        cmd.Parameters.AddWithValue("@Name", txtName.Text);
+        cmd.Parameters.AddWithValue("@Category", Category.Text);
+        cmd.Parameters.AddWithValue("@start", txtStart.Text);
+        cmd.Parameters.AddWithValue("@end",txtend.Text);
+        cmd.Parameters.AddWithValue("@Description", txtDescription.Text);
+
+
+
+
+
+

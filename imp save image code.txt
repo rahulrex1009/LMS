@@ -1,0 +1,29 @@
+string pwd=Class1.GetRandomPassword(20);
+string wanted_path;
+
+//this is for select image
+
+	wanted_path=Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+	DialogResult result=openFileDialog1.ShowDialog();
+	openFileDialog1.Filter="JPEG files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+	if(result==DialogResult.OK) //Test result.
+	{
+		pictureBox1.ImageLocation=openFileDialog1.FileName;
+		pictureBox1.SizeMode=PictureBoxSizeMode.StretchImage;
+	}
+	//pictureBox1.ImageLocation=@"..\..\Student_images\"+pwd+".jpg";
+
+
+
+
+//this is for save image
+
+File.Copy(openFileDialog1.FileName, wanted_path+"\\Student_images\\"+pwd+".jpg");
+
+
+con.Open();
+SqlCommand cmd=con.CreateCommand();
+cmd.CommandType=CommandType.Text;
+cmd.CommandText="";
+cmd.ExecuteNonQuery;
+con.Close();

@@ -1,0 +1,40 @@
+ private void mmsearch()
+        {
+            string searchterm;
+            string selectcmd;
+            try
+            {
+                searchterm =textSearchTerm.Text;
+                if (string.IsNullOrEmpty(searchterm))
+                {
+                    lblresultCount.Text = "Enter a Search Term for Searching Library Members.";
+                    treeViewExplore_AfterSelect(null, null);
+                    return;
+                }
+                selectcmd = string.Format("select MemberID,Name,Course,AdmissionYear,RollNo,PhoneNumber,Dob,Email from MemberDetails where {0} LIKE('%{1}%') AND Course='{2}' AND AdmissionYear='{3}' ", comboSearchFields.Text, searchterm,course,year);
+                SQLiteCommand cmd = new SQLiteCommand(selectcmd, con);
+                SQLiteDataReader dr;
+                dr = cmd.ExecuteReader();
+                if (dr.HasRows == true)
+                {
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+                  gridviewExplore.DataSource = dt;
+
+                  int c = dt.Rows.Count;
+                  lblresultCount.Text = "Displaying " + c + " Members ";
+                   
+                }
+                else
+                {
+                    lblresultCount.Text = "No Members to Display ";
+                    gridviewExplore.DataSource = null;
+
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }

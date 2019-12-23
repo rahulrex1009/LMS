@@ -1,0 +1,37 @@
+int i;
+            i = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
+            
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "update student_info set Name='" + student_name.Text + "', DateOfBirth='" + dateTimePicker1_dob.Text + "', Address='" + student_address.Text + "', Email='" + student_email.Text + "', PhoneNo='" + student_phnNo.Text + "', Course='" + student_course.Text + "', EnrollmentNo='" + student_enrollmentNo.Text + "', RollNo='" + student_rollNo.Text + "', Batch='" + student_batch.Text + "', CurrentSem='" + student_crrtsem.Text + "', LibCardno='" + student_libcardNo.Text + "' where Id=" + i + "";
+            DialogResult res = MessageBox.Show("Do You Want To Save Changes?", "Confirmation", MessageBoxButtons.YesNoCancel);
+            if (res == DialogResult.Yes)
+            {
+                cmd.ExecuteNonQuery();
+            }
+            MessageBox.Show("record updated successfully");
+            fill_grid();
+
+            if (result == DialogResult.OK) //for uploading image.
+            {
+
+               
+                string pwd = Class1.GetRandomPassword(20);
+                string img_path;
+                File.Copy(openFileDialog1.FileName, wanted_path + "\\Student_images\\" + pwd + ".jpg");
+                img_path = "Student_images\\" + pwd + ".jpg";
+
+                
+                 cmd.CommandType = CommandType.Text;
+                 cmd.CommandText= "update student_info set  Image='"+img_path.ToString()+"' where Id="+i+"";
+                 cmd.ExecuteNonQuery();
+                 fill_grid();
+                
+              
+            }
+
+student_name.Text
+dateTimePicker1_dob.Text
+student_address.Text
+student_email.Text
+student_phnNo.Text
